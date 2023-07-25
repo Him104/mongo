@@ -1,9 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const route = require('./routes/route');
+const route = require('./routes/route.js');
 
 const app = express();
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({extended:true}));
 
 mongoose.connect("mongodb+srv://him104:root@cluster0.qo8th.mongodb.net/mern_batch")
 
