@@ -6,7 +6,9 @@ const userSchema = new mongoose.Schema({
     name: {type: String,required: true,trim: true},
     phone: {type: String, required: true, unique: true, trim: true },
     email: {type: String, required: true,unique: true,trim: true },
-    password: {type: String,required: true,trim: true, min:[8, 'Must be atleast 8 characters, got {value}'], max:[15, 'Must be atmost 15 characters, got {value}'] },
+    password: {type: String,required: true,trim: true, minlength:[8, 'Must be atleast 8 characters'], maxlength:[15, 'Must be atmost 15 characters']  },
+
+    
     
     }
     , { timestamps: true });
