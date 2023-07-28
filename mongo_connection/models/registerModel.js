@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     phone: {type: String, required: true, unique: true, trim: true },
     email: {type: String, required: true,unique: true,trim: true },
     password: {type: String,required: true,trim: true, minlength:[8, 'Must be atleast 8 characters'], maxlength:[15, 'Must be atmost 15 characters']  },
-
+isDeleted: {type:Boolean,default:false},
     
     
     }

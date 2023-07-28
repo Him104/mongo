@@ -89,5 +89,71 @@ return res.status(200).send({status:true, message: "user details found", data:us
     }
 }
 
+
+
+const updateUser = async function(req,res){
+  try {
+
+    let data = req.body;
+
+    let userId = req.params.userId;
+
+    if (!userId) {
+      return res.status(400).send({status:false, message: "Please enter user id"});
+      
+    }
+
+    const user = await registerModel.findById(userId);
+
+    if (!user) {
+
+      return res.status(400).send({status:false, message: "Please enter valid user id"})
+      
+    }
+const updateUser = await registerModel.findOneAndUpdate({_id:userId},
+  {$set:{title:data.title, name:data.name, email:data.email, phone:data.phone , password:data.password}},
+  {new:true})
+
+  return res.status(200).send({status:true,message:"user details updated successfully", data:updateUser})
+
+
+
+    
+  } catch (error) {
+    res.status(500).send({status:false, error:error.message})
+  }
+}
+
+const deleteUser = async function (req,res) {
+  try {
+    const userId = req.params.userId
+
+
+    const user = await registerModel.findById(userId);
+if (!user) {
+
+  return res.status(404).send({status:false,message:"user not found"})
+
+}
+if (user.isDeleted == true) {
+
+  return res.status(400).send({status:false, message: "user has already been deleted"})
+  
+}
+
+const deletedUser = await registerModel.findByIdAndUpdate(userId ,
+{$set: {isDeleted:true}}, {new:true})
+
+return res.status(201).send({status:true,msg:"user deleted successfully"})
+
+
+  } catch (error) {
+    
+  }
+  
+}
+  
+
+    module.exports.updateUser=updateUser;
 module.exports.getUser = getUser;
 module.exports.createUser = createUser;
