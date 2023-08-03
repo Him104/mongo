@@ -12,7 +12,7 @@ const authentication = async function(req,res,next){
             return res.status(400).send({status:false, msg: "login is required, token set in header"})
             
         }
-        const decodedToken = jwt.verify(token,'him104')
+        const decodedToken = jwt.verify(token,process.env.SECRET_KEY)
 
 if (!decodedToken) {
 

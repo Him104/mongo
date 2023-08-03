@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -9,13 +10,15 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({extended:true}));
 
-mongoose.connect("mongodb+srv://him104:root@cluster0.qo8th.mongodb.net/mern_batch")
+mongoose.connect(process.env.mongo_uri)
 
 .then( () => console.log("Mongo is connected"))
 
 .catch(err => console.log(err))
 
 app.use('/', route);
+
+console.log(process.env.SECRET_KEY);
 
 app.listen(process.env.PORT || 4000, function () {
 

@@ -184,8 +184,8 @@ const login = async function(req,res){
       
     }
 
-    const token = jwt.sign({userId:userMatch._id,
-     }, 'him104',{expiresIn:'80h'})
+    const token = jwt.sign({userId:userMatch._id.toString,
+     }, process.env.SECRET_KEY,{expiresIn:'80h'})
     return res.status(200).send({status:true,msg:"you have successfully logged in", token});
 
 
