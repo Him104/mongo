@@ -18,7 +18,6 @@ mongoose.connect(process.env.mongo_uri)
 
 app.use('/', route);
 
-console.log(process.env.SECRET_KEY);
 
 app.listen(process.env.PORT || 4000, function () {
 
