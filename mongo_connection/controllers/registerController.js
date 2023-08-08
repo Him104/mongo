@@ -1,5 +1,8 @@
 const registerModel = require("../models/registerModel.js");
 const jwt = require('jsonwebtoken');
+const validator = require('validator');
+
+let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 const createUser = async function (req, res) {
   try {
     const data = req.body;
@@ -24,6 +27,10 @@ const createUser = async function (req, res) {
 
     if (!data.email) {
       return res.status(400).send({ status: false, msg: "email is required" });
+    }
+
+    if (!emailRegex.test(data.email)) {
+ return res.status(400).send({status:false, message: "Please enter a valid email"});     
     }
 
     const duplicateEmail = await registerModel.findOne({ email: data.email });
